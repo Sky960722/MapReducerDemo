@@ -6,6 +6,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.compress.BZip2Codec;
 import org.apache.hadoop.io.compress.CompressionCodec;
+import org.apache.hadoop.io.compress.SnappyCodec;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -22,7 +23,7 @@ public class WordCountDriver {
         conf.setBoolean("mapreduce.map.output.compress",true);
 
         //设置map端输出压缩方式
-        conf.setClass("mapreduce.map.output.compress.codec", BZip2Codec.class, CompressionCodec.class);
+        conf.setClass("mapreduce.map.output.compress.codec", SnappyCodec.class, CompressionCodec.class);
 
         Job job = Job.getInstance(conf);
         //2 设置jar包路径
@@ -42,7 +43,7 @@ public class WordCountDriver {
 
         //6 设置输入路径和输出路径
         FileInputFormat.setInputPaths(job, new Path("D:\\input\\inputword"));
-        FileOutputFormat.setOutputPath(job, new Path("D:\\output\\output1"));
+        FileOutputFormat.setOutputPath(job, new Path("D:\\output\\output2"));
 
         //设置reduce端输出压缩开启
         FileOutputFormat.setCompressOutput(job,true);
