@@ -44,6 +44,11 @@ public class WordCountDriver {
         FileInputFormat.setInputPaths(job, new Path("D:\\input\\inputword"));
         FileOutputFormat.setOutputPath(job, new Path("D:\\output\\output1"));
 
+        //设置reduce端输出压缩开启
+        FileOutputFormat.setCompressOutput(job,true);
+
+        FileOutputFormat.setOutputCompressorClass(job,BZip2Codec.class);
+
         //7 提交job
         boolean result = job.waitForCompletion(true);
         System.exit(result ? 0 : 1);
